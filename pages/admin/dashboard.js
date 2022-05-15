@@ -22,7 +22,6 @@ export default function Dashboard({ initOrders }) {
         const fetchOrders = async () => {
             await OrderService.findAll()
                 .then((data) => {
-                    console.log(data);
                     setOrders(data);
                     setLoading(false);
                 })

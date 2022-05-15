@@ -20,7 +20,6 @@ export default function AdminLogin() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(credentials);
         setError(null);
         adminLogin(credentials)
             .then((admin) => {

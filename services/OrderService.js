@@ -3,10 +3,7 @@ import axios from '../libs/axiosinstance';
 export async function create(order) {
     return await axios
         .post('/orders/create', order)
-        .then(({ data }) => {
-            console.log('sikeresen rendelés!');
-            return data;
-        })
+        .then(({ data }) => data)
         .catch((error) => {
             const { message } = error.response.data;
             throw new Error(message);
@@ -37,10 +34,7 @@ export async function remove(id) {
 export async function findAll() {
     return await axios
         .get('/admin/orders')
-        .then(({ data }) => {
-            console.log(data);
-            return data;
-        })
+        .then(({ data }) => data)
         .catch((error) => {
             const message = error.response.message;
             return message;
