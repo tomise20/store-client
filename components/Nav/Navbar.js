@@ -3,6 +3,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { MenuIcon, ShoppingBagIcon, XIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/actions';
@@ -14,13 +15,16 @@ export default function Navbar({ handleShoppingCart }) {
     const dispatch = useDispatch();
     const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
     const [modalType, setModalType] = useState('login');
+    const router = useRouter();
 
     const closeLoginModal = () => setIsOpenLoginModal(false);
 
     const signOut = (e) => {
         e.preventDefault();
 
-        dispatch(logout());
+        dispatch(logout()).then(() => {
+            router.push('/');
+        });
     };
 
     const openModal = (e, type) => {

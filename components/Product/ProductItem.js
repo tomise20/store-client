@@ -9,8 +9,6 @@ export default function ProductItem({ product, openDetails }) {
             onClick={() => openDetails(product.id)}>
             <div className="relative w-full h-32 min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80">
                 <Image
-                    width={200}
-                    height={500}
                     src={product.image}
                     alt={product.name}
                     objectFit="cover"

@@ -48,7 +48,7 @@ export default function ThankYou({ order }) {
                         <a>
                             <CustomButton isSubmit={false}>
                                 <ArrowLeftIcon
-                                    className="h-5 w-5 text-white group-hover:text-indigo-400 mr-3"
+                                    className="h-5 w-5 text-white mr-3"
                                     aria-hidden="true"
                                 />
                                 Vissza a főoldalra
@@ -60,7 +60,7 @@ export default function ThankYou({ order }) {
                             <a>
                                 <CustomButton>
                                     <UserCircleIcon
-                                        className="h-5 w-5 text-white group-hover:text-indigo-400 mr-3"
+                                        className="h-5 w-5 text-white mr-3"
                                         aria-hidden="true"
                                     />
                                     Tovább a profilomra

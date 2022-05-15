@@ -34,3 +34,16 @@ export async function remove(id) {
         .catch((error) => error);
 }
 
+export async function findAll() {
+    return await axios
+        .get('/admin/orders')
+        .then(({ data }) => {
+            console.log(data);
+            return data;
+        })
+        .catch((error) => {
+            const message = error.response.message;
+            return message;
+        });
+}
+

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CartItem from '../components/Cart/CartItem';
 import { CustomButton } from '../components/Inputs/Buttons';
 import CustomInput from '../components/Inputs/CustomInput';
+import Layout from '../components/Layout';
 import { currencyFormat, showNotification } from '../libs/helper';
 import { orderRequest } from '../redux/actions';
 
@@ -42,10 +43,7 @@ export default function Checkout() {
                     email: '',
                     address: '',
                 });
-                showNotification('Sikeres rendelés leadás!');
-                setTimeout(() => {
-                    router.push(`/thank-you/${order.id}`);
-                }, 1500);
+                router.push(`/thank-you/${order.id}`);
             })
             .catch((error) => {
                 showNotification(error.message, 'error');
@@ -54,7 +52,7 @@ export default function Checkout() {
 
     return (
         <>
-            <div className="container xl:max-w-7xl my-10">
+            <div className="container xl:max-w-7xl my-10 px-10">
                 <form onSubmit={onSubmit}>
                     <div className="grid grid-cols-12 md:gap-6 p-3 lg:p-0">
                         <div className="col-span-12 lg:col-span-7 mb-5 lg:md-0">
@@ -159,4 +157,8 @@ export default function Checkout() {
         </>
     );
 }
+
+Checkout.getLayout = function getLayout(page) {
+    return <Layout>{page}</Layout>;
+};
 

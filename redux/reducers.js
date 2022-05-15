@@ -6,7 +6,7 @@ import * as types from './types';
 const initAuthState = {
     loading: false,
     user: {},
-    error: [],
+    error: null,
 };
 
 const initCartState = {
@@ -24,10 +24,13 @@ const authReducer = createReducer(initAuthState, (builder) => {
             return { ...state, user: payload, loading: false };
         })
         .addCase(types.loginFailure, (state, { payload }) => {
-            return { ...state, err: payload, loading: false };
+            return { ...state, error: payload, loading: false };
         })
         .addCase(types.registrationSuccessful, (state, { payload }) => {
             return { ...state, user: payload };
+        })
+        .addCase(types.registrationFailure, (state, { payload }) => {
+            return { ...state, error: payload, loading: false };
         })
         .addCase(types.logout, () => {
             return { ...initAuthState };
@@ -55,6 +58,13 @@ const cartReducer = createReducer(initCartState, (builder) => {
                 ...state,
                 items: payload.items ?? [],
                 total_price: payload.totalPrice,
+            };
+        })
+        .addCase(types.resetCart, (state) => {
+            return {
+                ...state,
+                items: [],
+                total_price: 0,
             };
         });
 });

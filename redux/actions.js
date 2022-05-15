@@ -62,61 +62,66 @@ export const removeCartItem = (id) => (dispatch, getState) => {
 
             return Promise.resolve();
         })
-        .catch((err) => {
-            return Promise.reject(err);
+        .catch((error) => {
+            const message = error.response.data;
+
+            return Promise.reject(message);
         });
 };
 
 export const fetchUser = (credentials) => (dispatch) => {
     dispatch(types.loginRequest);
-    AuthService.login(credentials)
+    return AuthService.login(credentials)
         .then((user) => {
             localStorage.setItem('user', JSON.stringify(user));
             dispatch(types.loginSuccessful(user));
-        })
-        .catch((err) => dispatch(types.FailureLogin(err)));
-};
 
-export const logoutSuccessful = () => types.logout();
+            return Promise.resolve();
+        })
+        .catch((error) => {
+            dispatch(types.loginFailure(error.message));
+
+            return Promise.reject();
+        });
+};
 
 export const logout = () => (dispatch) => {
-    AuthService.logout();
-    dispatch(logoutSuccessful());
+    return AuthService.logout().then(() => {
+        dispatch(types.logout());
+
+        return Promise.resolve();
+    });
 };
-
-export const registrationSuccessful = (user) =>
-    types.registrationSuccessful(user);
-
-export const registrationFailure = (err) => types.registrationFailure(err);
 
 export const registrationRequest = (user) => (dispatch) => {
     dispatch(types.registrationRequest);
     return AuthService.register(user)
         .then((user) => {
-            dispatch(registrationSuccessful(user));
+            dispatch(types.registrationSuccessful(user));
             localStorage.setItem('user', JSON.stringify(user));
+
             return Promise.resolve();
         })
-        .catch((err) => {
-            dispatch(registrationFailure(err));
+        .catch((error) => {
+            dispatch(types.registrationFailure(error.message));
+
             return Promise.reject();
         });
 };
-
-export const orderSuccessful = (user) => types.orderSuccessful(user);
-
-export const orderFailure = (err) => types.orderSuccessful(err);
 
 export const orderRequest = (order) => (dispatch) => {
     dispatch(types.orderRequest);
     return OrderService.create(order)
         .then((order) => {
-            dispatch(orderSuccessful(order));
+            dispatch(types.orderSuccessful(order));
+            dispatch(types.resetCart());
+
             return Promise.resolve(order);
         })
-        .catch((err) => {
-            dispatch(orderFailure(err));
-            return Promise.reject(err);
+        .catch((error) => {
+            dispatch(types.orderFailure(error));
+
+            return Promise.reject(error);
         });
 };
 

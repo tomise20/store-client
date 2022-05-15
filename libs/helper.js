@@ -23,3 +23,12 @@ export function currencyFormat(value) {
     }).format(value);
 }
 
+export function getErrors(error) {
+    const errors = [];
+    for (const [key, value] of Object.entries(error)) {
+        errors.push(value);
+    }
+
+    return errors;
+}
+

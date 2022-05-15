@@ -1,7 +1,7 @@
 import { LockClosedIcon, UserCircleIcon } from '@heroicons/react/outline';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { classNames, showNotification } from '../../libs/helper';
+import { showNotification } from '../../libs/helper';
 import { registrationRequest } from '../../redux/actions';
 import { CustomButton } from '../Inputs/Buttons';
 import CustomInput from '../Inputs/CustomInput';
@@ -9,12 +9,13 @@ import CustomInput from '../Inputs/CustomInput';
 export default function RegistrationModal({ closeModal, changeModalType }) {
     const auth = useSelector((state) => state.auth);
     const dispatch = useDispatch();
+    const [error, setError] = useState(null);
     const [user, setUser] = useState({
         email: '',
         name: '',
         address: '',
         password: '',
-        re_password: '',
+        password_confirmation: '',
     });
 
     const handleChange = (e) =>
@@ -22,6 +23,11 @@ export default function RegistrationModal({ closeModal, changeModalType }) {
 
     const onSignUp = (e) => {
         e.preventDefault();
+
+        if (user.password !== user.password_confirmation) {
+            setError('A két jelszó nem eggyezik!');
+            return false;
+        }
 
         dispatch(registrationRequest(user))
             .then(() => {
@@ -47,13 +53,15 @@ export default function RegistrationModal({ closeModal, changeModalType }) {
                                 Regisztráció
                             </h2>
                         </div>
-                        <p
-                            className={classNames(
-                                auth.error.length > 0 ? 'block' : 'hidden',
-                                'text-red-600 text-sm text-center font-bold mt-3'
-                            )}>
-                            Error!
-                        </p>
+                        {(auth.error || error) && (
+                            <div
+                                className="text-center p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                                role="alert">
+                                <span className="font-medium">
+                                    {auth.error ?? error}
+                                </span>
+                            </div>
+                        )}
                         <form onSubmit={onSignUp}>
                             <input
                                 type="hidden"
@@ -69,6 +77,7 @@ export default function RegistrationModal({ closeModal, changeModalType }) {
                                             value={user.name}
                                             onChange={handleChange}
                                             placeholder="Név"
+                                            required
                                         />
                                     </div>
                                     <div className="">
@@ -78,6 +87,7 @@ export default function RegistrationModal({ closeModal, changeModalType }) {
                                             value={user.email}
                                             onChange={handleChange}
                                             placeholder="E-mail cím"
+                                            required
                                         />
                                     </div>
                                     <div className="">
@@ -87,6 +97,7 @@ export default function RegistrationModal({ closeModal, changeModalType }) {
                                             value={user.address}
                                             onChange={handleChange}
                                             placeholder="Cím"
+                                            required
                                         />
                                     </div>
                                     <div>
@@ -96,21 +107,23 @@ export default function RegistrationModal({ closeModal, changeModalType }) {
                                             value={user.password}
                                             onChange={handleChange}
                                             placeholder="Jelszó"
+                                            required
                                         />
                                     </div>
                                     <div>
                                         <CustomInput
                                             type="password"
-                                            name="re_password"
-                                            value={user.re_password}
+                                            name="password_confirmation"
+                                            value={user.password_confirmation}
                                             onChange={handleChange}
                                             placeholder="Jelszó újra"
+                                            required
                                         />
                                     </div>
                                 </div>
                             </div>
                             <div className="mt-5">
-                                <CustomButton isSubmit={true}>
+                                <CustomButton isSubmit={true} classes="w-full">
                                     <LockClosedIcon
                                         className="h-5 w-5 text-white mr-3"
                                         aria-hidden="true"
@@ -124,7 +137,8 @@ export default function RegistrationModal({ closeModal, changeModalType }) {
                             <div>
                                 <CustomButton
                                     isSubmit={false}
-                                    handler={onChangeToSignIn}>
+                                    handler={onChangeToSignIn}
+                                    classes="w-full">
                                     <UserCircleIcon
                                         className="h-5 w-5 text-white"
                                         aria-hidden="true"

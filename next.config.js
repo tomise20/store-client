@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-const isProd = process.env.NODE_ENV === 'production';
 const nextConfig = {
     images: {
         domains: ['cdn.pixabay.com', 'localhost'],
@@ -7,8 +6,8 @@ const nextConfig = {
     reactStrictMode: true,
     publicRuntimeConfig: {
         backendUrl: process.env.BACKEND_URL,
+        apiToken: process.env.API_TOKEN,
     },
-    assetPrefix: isProd ? 'tomise20' : '',
 };
 
 module.exports = nextConfig;

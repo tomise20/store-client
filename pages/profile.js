@@ -1,6 +1,4 @@
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import OrderItem from '../components/Cart/OrderItem';
 import Layout from '../components/Layout';
 import LoadingScreen from '../components/LoadingScreen';
@@ -9,21 +7,18 @@ import * as OrderService from '../services/OrderService';
 
 export default function Profile() {
     const [orders, setOrders] = useState([]);
-    const router = useRouter();
-    const auth = useSelector((state) => state.auth);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const fetchOrders = async () => {
+            await OrderService.findAllForUser()
+                .then((orders) => {
+                    setOrders(orders);
+                })
+                .catch((error) => setError(error));
+        };
 
-        if (!auth.user.id && !user) {
-            router.push('/');
-        }
-    }, []);
-
-    useEffect(() => {
-        OrderService.findAllForUser().then((orders) => {
-            setOrders(orders);
-        });
+        fetchOrders();
     }, []);
 
     const removeOrder = (id) => {
@@ -32,11 +27,15 @@ export default function Profile() {
                 setOrders(orders.filter((order) => order.id !== id));
                 showNotification('Rendelés sikeresen törölve!');
             })
-            .catch((err) => showNotification('Hiba!'));
+            .catch((error) => showNotification(error));
     };
 
     if (!orders) {
-        <LoadingScreen isLoading={true} />;
+        return <LoadingScreen isLoading={!!orders} />;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
     }
 
     return (
