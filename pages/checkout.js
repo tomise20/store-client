@@ -145,7 +145,7 @@ export default function Checkout() {
                                 <div className="border-t-2 border-gray-200 p-3 md:p-5">
                                     <CustomButton
                                         isSubmit={true}
-                                        extraClasses="py-5">
+                                        classes="py-5 w-full">
                                         Rendelés Leadás
                                     </CustomButton>
                                 </div>

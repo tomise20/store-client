@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function ProductPromotion() {
     return (
         <div className="relative bg-white overflow-hidden my-8">
@@ -8,8 +10,9 @@ export default function ProductPromotion() {
                             Summer styles are finally here
                         </h1>
                         <p className="mt-4 text-xl text-gray-500">
-                            This year, our new summer collection will shelter you from the harsh elements of a world
-                            that doesn't care if you live or die.
+                            This year, our new summer collection will shelter
+                            you from the harsh elements of a world that doesn't
+                            care if you live or die.
                         </p>
                     </div>
                     <div>
@@ -22,14 +25,20 @@ export default function ProductPromotion() {
                                     <div className="flex items-center space-x-6 lg:space-x-8">
                                         <div className="flex-shrink-0 grid grid-cols-1 gap-y-6 lg:gap-y-8">
                                             <div className="w-44 h-64 rounded-lg overflow-hidden sm:opacity-0 lg:opacity-100">
-                                                <img
+                                                <Image
+                                                    width={200}
+                                                    height={500}
+                                                    layout="responsive"
                                                     src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-01.jpg"
                                                     alt=""
                                                     className="w-full h-full object-center object-cover"
                                                 />
                                             </div>
                                             <div className="w-44 h-64 rounded-lg overflow-hidden">
-                                                <img
+                                                <Image
+                                                    width={200}
+                                                    height={500}
+                                                    layout="responsive"
                                                     src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-02.jpg"
                                                     alt=""
                                                     className="w-full h-full object-center object-cover"
@@ -38,21 +47,30 @@ export default function ProductPromotion() {
                                         </div>
                                         <div className="flex-shrink-0 grid grid-cols-1 gap-y-6 lg:gap-y-8">
                                             <div className="w-44 h-64 rounded-lg overflow-hidden">
-                                                <img
+                                                <Image
+                                                    width={200}
+                                                    height={500}
+                                                    layout="responsive"
                                                     src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-03.jpg"
                                                     alt=""
                                                     className="w-full h-full object-center object-cover"
                                                 />
                                             </div>
                                             <div className="w-44 h-64 rounded-lg overflow-hidden">
-                                                <img
+                                                <Image
+                                                    width={200}
+                                                    height={500}
+                                                    layout="responsive"
                                                     src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-04.jpg"
                                                     alt=""
                                                     className="w-full h-full object-center object-cover"
                                                 />
                                             </div>
                                             <div className="w-44 h-64 rounded-lg overflow-hidden">
-                                                <img
+                                                <Image
+                                                    width={200}
+                                                    height={500}
+                                                    layout="responsive"
                                                     src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-05.jpg"
                                                     alt=""
                                                     className="w-full h-full object-center object-cover"
@@ -61,14 +79,20 @@ export default function ProductPromotion() {
                                         </div>
                                         <div className="flex-shrink-0 grid grid-cols-1 gap-y-6 lg:gap-y-8">
                                             <div className="w-44 h-64 rounded-lg overflow-hidden">
-                                                <img
+                                                <Image
+                                                    width={200}
+                                                    height={500}
+                                                    layout="responsive"
                                                     src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-06.jpg"
                                                     alt=""
                                                     className="w-full h-full object-center object-cover"
                                                 />
                                             </div>
                                             <div className="w-44 h-64 rounded-lg overflow-hidden">
-                                                <img
+                                                <Image
+                                                    width={200}
+                                                    height={500}
+                                                    layout="responsive"
                                                     src="https://tailwindui.com/img/ecommerce-images/home-page-03-hero-image-tile-07.jpg"
                                                     alt=""
                                                     className="w-full h-full object-center object-cover"
